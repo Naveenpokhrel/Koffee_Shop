@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -33,11 +33,11 @@ export default function HeroSection() {
     },
   ];
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
+  }, [isAnimating, slides.length]);
 
   const prevSlide = () => {
     if (isAnimating) return;
@@ -49,15 +49,13 @@ export default function HeroSection() {
     const timer = setInterval(() => {
       nextSlide();
     }, 5000);
-
     return () => clearInterval(timer);
-  }, []);
+  }, [isAnimating, nextSlide]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAnimating(false);
     }, 1000);
-
     return () => clearTimeout(timer);
   }, [currentSlide]);
 
@@ -102,30 +100,24 @@ export default function HeroSection() {
             <Link href="/order" passHref>
               <button
                 className="bg-amber-600 text-white px-6 py-3 rounded-md hover:bg-amber-700 transition transform hover:scale-105"
-                onClick={() => {
-                  // Optional: Add any click tracking or analytics here
-                  console.log("Order Now clicked");
-                }}
+                onClick={() => console.log("Order Now clicked")}
               >
                 ORDER NOW
               </button>
             </Link>
 
-            <a href="#menu" className="inline-block">
-              <button
-                className="bg-white text-black px-6 py-3 rounded-md hover:bg-gray-200 transition transform hover:scale-105"
-                onClick={() => {
-                  // Smooth scroll to menu section
-                  document
-                    .getElementById("menu")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                  // Optional: Add any click tracking or analytics here
-                  console.log("View Menu clicked");
-                }}
-              >
-                VIEW OUR MENU
-              </button>
-            </a>
+            <button
+              className="bg-white text-black px-6 py-3 rounded-md hover:bg-gray-200 transition transform hover:scale-105"
+              onClick={() => {
+                const section = document.getElementById("menu");
+                if (section) {
+                  section.scrollIntoView({ behavior: "smooth" });
+                }
+                console.log("View Menu clicked");
+              }}
+            >
+              VIEW OUR MENU
+            </button>
           </div>
         </div>
       </div>
@@ -151,6 +143,7 @@ export default function HeroSection() {
           />
         </svg>
       </button>
+
       <button
         onClick={nextSlide}
         className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-20 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition"
@@ -191,7 +184,7 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* Add this to your globals.css */}
+      {/* Global Styles for Animation */}
       <style jsx global>{`
         @keyframes fadeIn {
           from {

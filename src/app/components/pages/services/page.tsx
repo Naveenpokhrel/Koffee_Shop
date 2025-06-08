@@ -4,30 +4,31 @@ import { FaTruck, FaCoffee, FaStar, FaBook } from "react-icons/fa";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 const services = [
   {
     title: "Fastest Door Delivery",
     icon: <FaTruck className="text-white" />,
     image: "/images/service-1.jpg",
-    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor",
+    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor.",
   },
   {
     title: "Fresh Coffee Beans",
     icon: <FaCoffee className="text-white" />,
     image: "/images/service-2.jpg",
-    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor",
+    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor.",
   },
   {
     title: "Best Quality Coffee",
     icon: <FaStar className="text-white" />,
     image: "/images/service-3.jpg",
-    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor",
+    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor.",
   },
   {
     title: "Online Table Booking",
     icon: <FaBook className="text-white" />,
     image: "/images/service-4.jpg",
-    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor",
+    desc: "Sit lorem ipsum et diam elit est dolor sed duo. Guberg sea et et lorem dolor sed est sit invidunt, dolore tempor diam ipsum takima erat tempor.",
   },
 ];
 
@@ -45,9 +46,9 @@ export default function ServiceGrid() {
   }, [router]);
 
   return (
-    <div id="services" className="bg-[#fef9f1] py-20 px-4 md:px-8">
-      {/* Styled Header */}
-      <div className="text-center mb-14 max-w-xl mx-auto">
+    <section id="services" className="bg-[#fef9f1] py-24 px-4 md:px-10">
+      {/* Header */}
+      <div className="text-center mb-20 max-w-2xl mx-auto">
         <div className="relative inline-block mb-4">
           <span className="absolute -left-8 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#c79559] rounded-full"></span>
           <span className="inline-block w-24 h-1 bg-[#c79559] rounded-full"></span>
@@ -65,14 +66,14 @@ export default function ServiceGrid() {
       </div>
 
       {/* Service Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-7xl mx-auto">
         {services.map((service, index) => (
           <div
             key={index}
-            className="flex flex-col sm:flex-row items-start gap-6"
+            className="flex flex-col md:flex-row items-start gap-8"
           >
             {/* Image */}
-            <div className="relative w-full sm:w- h-65 sm:h-65 rounded-lg overflow-hidden shadow-md">
+            <div className="relative w-full md:w-[320px] h-[240px] rounded-xl overflow-hidden shadow-md shrink-0">
               <Image
                 src={service.image}
                 alt={service.title}
@@ -81,23 +82,23 @@ export default function ServiceGrid() {
               />
             </div>
 
-            {/* Content */}
-            <div className="flex flex-col justify-center text-[#3b2c20]">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-[#b88653] w-10 h-10 rounded-full flex items-center justify-center shadow-md">
+            {/* Text Content */}
+            <div className="flex flex-col justify-center text-[#3b2c20] flex-1">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-[#b88653] w-12 h-12 rounded-full flex items-center justify-center shadow-md">
                   {service.icon}
                 </div>
-                <h3 className="text-lg font-bold text-[#2e2017]">
+                <h3 className="text-2xl font-bold text-[#2e2017]">
                   {service.title}
                 </h3>
               </div>
-              <p className="text-sm leading-relaxed text-[#5b4635]">
+              <p className="text-base leading-relaxed text-[#5b4635]">
                 {service.desc}
               </p>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
