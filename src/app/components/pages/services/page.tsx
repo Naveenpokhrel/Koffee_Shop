@@ -45,7 +45,7 @@ export default function ServiceGrid() {
   }, [router]);
 
   return (
-    <div className="bg-[#fef9f1] py-20 px-4 md:px-8">
+    <div id="services" className="bg-[#fef9f1] py-20 px-4 md:px-8">
       {/* Styled Header */}
       <div className="text-center mb-14 max-w-xl mx-auto">
         <div className="relative inline-block mb-4">

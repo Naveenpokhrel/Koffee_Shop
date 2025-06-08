@@ -26,3 +26,6 @@ body {
   /* background-image: url('/images/bg.jpg'); */
 }
 
+html {
+  scroll-behavior: smooth;
+}

@@ -93,7 +93,6 @@ export default function FancyCoffeeMenu() {
   const handleCustomizeOrder = (item: { name: string }) => {
     router.push(`/menu/order?name=${encodeURIComponent(item.name)}`);
   };
-
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -105,7 +104,7 @@ export default function FancyCoffeeMenu() {
   }, [router]);
 
   return (
-    <section className="bg-[#fef9f1] py-20 px-6 md:px-12">
+    <section id="menu" className="bg-[#fef9f1] py-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16 max-w-xl mx-auto">
