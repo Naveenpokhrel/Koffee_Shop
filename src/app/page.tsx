@@ -2,7 +2,7 @@ import HeroSection from "./components/herosection";
 import Navbar from "./components/navbar";
 import ServicesSection from "./components/pages/services/page";
 import About from "./components/pages/about/page";
-import CoffeeMenu from "./components/pages/menu/page";
+import FancyCoffeeMenu from "./components/menucard";
 
 export default function HomePage() {
   return (
@@ -11,7 +11,7 @@ export default function HomePage() {
       <HeroSection />
       <About />
       <ServicesSection />
-      <CoffeeMenu />
+      <FancyCoffeeMenu />
     </main>
   );
 }

@@ -1,22 +1,47 @@
+"use client";
 import Image from "next/image";
 import { Check } from "lucide-react";
-import Navbar from "../../navbar";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AboutUs() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [router]);
+
   return (
     <>
-      <Navbar />
-      <section className="bg-[#fff9f0] py-16 h-[100vh]">
-        <div className="text-center mb-12">
-          <div className="w-1 h-20 mx-auto bg-[#c79559] mb-4"></div>
-          <h4 className="text-[#c79559] tracking-widest text-sm font-semibold uppercase">
+      {/* <Navbar /> */}
+      <section id="about" className="bg-[#fff9f0] py-16 min-h-screen">
+        {/* Customized Header */}
+        <div className="text-center mb-12 max-w-xl mx-auto">
+          <div className="relative inline-block mb-4">
+            {/* Decorative accent circles with a line */}
+            <span className="absolute -left-8 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#c79559] rounded-full"></span>
+            <span className="inline-block w-24 h-1 bg-[#c79559] rounded-full"></span>
+            <span className="absolute -right-8 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#c79559] rounded-full"></span>
+          </div>
+          <h4 className="text-[#c79559] tracking-widest text-sm font-semibold uppercase mb-2">
             About Us
           </h4>
-          <h2 className="text-4xl font-bold text-[#2e1d0e]">
+          <h2 className="text-5xl font-extrabold text-[#2e1d0e] drop-shadow-lg">
             Serving Since 1950
           </h2>
+          <p className="mt-4 max-w-md mx-auto text-[#5b4a2a] font-medium">
+            Proudly crafting experiences and serving excellence for over 70
+            years.
+          </p>
         </div>
 
+        {/* Main content grid */}
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 items-center">
           {/* Our Story */}
           <div>

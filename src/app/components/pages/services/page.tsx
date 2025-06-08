@@ -2,7 +2,8 @@
 
 import { FaTruck, FaCoffee, FaStar, FaBook } from "react-icons/fa";
 import Image from "next/image";
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 const services = [
   {
     title: "Fastest Door Delivery",
@@ -31,31 +32,52 @@ const services = [
 ];
 
 export default function ServiceGrid() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [router]);
+
   return (
     <div className="bg-[#fef9f1] py-20 px-4 md:px-8">
-      {/* Header */}
-       <div className="text-center mb-12">
-          <div className="w-1 h-20 mx-auto bg-[#c79559] mb-4"></div>
-          <h4 className="text-[#c79559] tracking-widest text-sm font-semibold uppercase">
-            Our Services
-          </h4>
-          <h2 className="text-4xl font-bold text-[#2e1d0e]">
-            Fresh & Organic Beans
-          </h2>
+      {/* Styled Header */}
+      <div className="text-center mb-14 max-w-xl mx-auto">
+        <div className="relative inline-block mb-4">
+          <span className="absolute -left-8 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#c79559] rounded-full"></span>
+          <span className="inline-block w-24 h-1 bg-[#c79559] rounded-full"></span>
+          <span className="absolute -right-8 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#c79559] rounded-full"></span>
         </div>
+        <h4 className="text-[#c79559] tracking-widest text-sm font-semibold uppercase mb-2">
+          Our Services
+        </h4>
+        <h2 className="text-5xl font-extrabold text-[#2e1d0e] drop-shadow-lg">
+          Fresh & Organic Beans
+        </h2>
+        <p className="mt-4 text-[#5b4a2a] font-medium">
+          Handpicked quality and fast delivery — crafted for true coffee lovers.
+        </p>
+      </div>
 
-
-      {/* Grid */}
+      {/* Service Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
         {services.map((service, index) => (
-          <div key={index} className="flex flex-col sm:flex-row items-start gap-6">
+          <div
+            key={index}
+            className="flex flex-col sm:flex-row items-start gap-6"
+          >
             {/* Image */}
-            <div className="relative w-full sm:w-125 h-50 rounded-lg overflow-hidden shadow-md">
+            <div className="relative w-full sm:w- h-65 sm:h-65 rounded-lg overflow-hidden shadow-md">
               <Image
                 src={service.image}
                 alt={service.title}
                 fill
-                style={{ objectFit: "cover" }}
+                className="object-cover"
               />
             </div>
 
@@ -69,7 +91,9 @@ export default function ServiceGrid() {
                   {service.title}
                 </h3>
               </div>
-              <p className="text-sm leading-relaxed text-[#5b4635]">{service.desc}</p>
+              <p className="text-sm leading-relaxed text-[#5b4635]">
+                {service.desc}
+              </p>
             </div>
           </div>
         ))}
