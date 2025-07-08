@@ -6,7 +6,21 @@ import { useRouter } from "next/navigation";
 import { FaStar, FaSnowflake } from "react-icons/fa";
 import { MdOutlineLocalCafe } from "react-icons/md";
 import { toast } from "react-toastify";
+import { useCart } from "../context/CardContext";
 import "react-toastify/dist/ReactToastify.css";
+
+interface MenuItem {
+  name: string;
+  image: string;
+  price: string;
+  description: string;
+  popular: boolean;
+  seasonal: boolean;
+}
+
+interface MenuProps {
+  onAddToCart?: (item: MenuItem) => void; // optional since you use useCart internally
+}
 
 const menuData = [
   {
@@ -74,11 +88,13 @@ const menuData = [
   },
 ];
 
-export default function FancyCoffeeMenu() {
+export default function FancyCoffeeMenu({ }: MenuProps) {
   const [active, setActive] = useState("All");
   const router = useRouter();
+  const { addToCart } = useCart();
 
   const categories = ["All", ...menuData.map((cat) => cat.type)];
+
 
   const allItems =
     active === "All"
@@ -91,15 +107,13 @@ export default function FancyCoffeeMenu() {
     router.push("/menu/orders/");
   };
 
-  const handleCustomizeOrder = (item: { name: string }) => {
+  const handleCustomizeOrder = (item: MenuItem) => {
     router.push(`/menu/order?name=${encodeURIComponent(item.name)}`);
   };
 
-  const handleOrder = (item: { name: string }) => {
-    toast.success(`${item.name} added to order successfully!`, {
-      position: "top-center",
-      autoClose: 2000,
-    });
+  const handleAddToCart = (item: MenuItem) => {
+    addToCart(item);
+    toast.success(`${item.name} added to cart!`);
   };
 
   useEffect(() => {
@@ -115,6 +129,7 @@ export default function FancyCoffeeMenu() {
   return (
     <section id="menu" className="bg-[#fef9f1] py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
+        {/* Section Heading */}
         <div className="text-center mb-16 max-w-xl mx-auto">
           <div className="relative inline-block mb-4">
             <span className="absolute -left-8 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#c79559] rounded-full"></span>
@@ -133,6 +148,7 @@ export default function FancyCoffeeMenu() {
           </p>
         </div>
 
+        {/* Category Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {categories.map((cat) => (
             <button
@@ -149,12 +165,14 @@ export default function FancyCoffeeMenu() {
           ))}
         </div>
 
+        {/* Menu Cards */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {displayedItems.map((item, idx) => (
             <div
               key={idx}
               className="relative group p-4 bg-white/40 backdrop-blur-lg rounded-xl shadow-xl hover:scale-[1.03] transition-all duration-300 border border-[#e2d5c3]"
             >
+              {/* Image */}
               <div className="relative w-full aspect-[4/3] mb-3 rounded-lg overflow-hidden">
                 <Image
                   src={item.image}
@@ -176,17 +194,16 @@ export default function FancyCoffeeMenu() {
                 )}
               </div>
 
+              {/* Info */}
               <div className="flex justify-between items-start">
-                <h3 className="text-lg font-bold text-[#3e2c21]">
-                  {item.name}
-                </h3>
+                <h3 className="text-lg font-bold text-[#3e2c21]">{item.name}</h3>
                 <span className="text-[#d2a679] font-semibold text-sm bg-[#fef6ee] px-3 py-1 rounded-full shadow-sm">
                   {item.price}
                 </span>
               </div>
-
               <p className="text-sm text-[#5c4a3b] mt-2">{item.description}</p>
 
+              {/* Actions */}
               <div className="mt-4 flex justify-between items-center">
                 <button
                   onClick={() => handleCustomizeOrder(item)}
@@ -195,8 +212,8 @@ export default function FancyCoffeeMenu() {
                   <MdOutlineLocalCafe className="text-lg" /> Customize
                 </button>
                 <button
-                  onClick={() => handleOrder(item)}
-                  className="bg-[#c79559] text-white px-4 py-1 rounded-full text-sm font-semibold shadow hover:bg-[#a5723f]"
+                  className="lg:h-[40px] lg:w-[120px] text-sm h-[30px] w-[110px] ml-28 bg-customRed text-black px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  onClick={() => handleAddToCart(item)}
                 >
                   Order
                 </button>
@@ -205,6 +222,7 @@ export default function FancyCoffeeMenu() {
           ))}
         </div>
 
+        {/* Explore More */}
         <div className="mt-12 text-center">
           <button
             onClick={handleExploreMore}

@@ -97,7 +97,7 @@ export default function HeroSection() {
           </p>
 
           <div className="flex justify-center gap-4 flex-wrap animate-fadeIn">
-            <Link href="/order" passHref>
+            <Link href="/Orders" passHref>
               <button
                 className="bg-amber-600 text-white px-6 py-3 rounded-md hover:bg-amber-700 transition transform hover:scale-105"
                 onClick={() => console.log("Order Now clicked")}
